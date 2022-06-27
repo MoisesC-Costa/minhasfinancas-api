@@ -8,26 +8,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
-@Table(name = "usuarios")
+@NoArgsConstructor
+@Table(name = "financas.usuario")
 public class Customer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Id;
+	private Long id;
 	
-	@Column(name = "name")
+	@Column(name = "nome")
 	private String name;
 	
 	@Column(name = "password")
 	private String password;
 	
-	@Column(name = "gmail")
-	private String gmail;
+	@Column(name = "email")
+	private String email;
 }
