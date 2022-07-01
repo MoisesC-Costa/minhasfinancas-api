@@ -1,15 +1,11 @@
 package com.github.moises.minhasfinancasbackend.service;
 
-import com.github.moises.minhasfinancasbackend.advice.exception.ErroAutenticacao;
-import com.github.moises.minhasfinancasbackend.advice.exception.RegraNegocioEmailException;
-import com.github.moises.minhasfinancasbackend.model.entities.Customer;
-
-import javax.transaction.Transactional;
+import com.github.moises.minhasfinancasbackend.model.entities.Usuario;
 
 public interface CustomerService {
-    public Customer autenticar(String email, String senha);
+    public Usuario autenticar(String email, String senha);
 
-    public Customer salvarCliente(Customer usuario);
+    public Usuario salvarCliente(Usuario usuario);
 
     public void validarEmail(String email);
 }

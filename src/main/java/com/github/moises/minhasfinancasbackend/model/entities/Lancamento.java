@@ -36,7 +36,7 @@ public class Lancamento {
 
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
-	private Customer customer;
+	private Usuario usuario;
 	
 	@Column(name = "valor")
 	private BigDecimal valor;
@@ -52,5 +52,4 @@ public class Lancamento {
 	@Column(name = "status")
 	@Enumerated(value = EnumType.STRING)
 	private StatusLancamento status;
-
 }

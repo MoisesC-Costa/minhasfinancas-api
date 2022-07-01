@@ -7,25 +7,25 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.moises.minhasfinancasbackend.advice.exception.RegraNegocioEmailException;
-import com.github.moises.minhasfinancasbackend.model.entities.Customer;
-import com.github.moises.minhasfinancasbackend.model.repositories.CustomerRepository;
+import com.github.moises.minhasfinancasbackend.advice.exception.RegraNegocioException;
+import com.github.moises.minhasfinancasbackend.model.entities.Usuario;
+import com.github.moises.minhasfinancasbackend.model.repositories.UsuarioRepository;
 
 import javax.transaction.Transactional;
 
 @Service
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerServiceIMPL implements CustomerService {
+public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
-	private CustomerRepository repository;
+	private UsuarioRepository repository;
 	
-	public Customer autenticar(String email, String senha) {
+	public Usuario autenticar(String email, String senha) {
 		var usuario = repository.findByEmail(email);
 
 		if (!usuario.isPresent()) {
-			throw new RegraNegocioEmailException("Não existe usuario cadastrado com esse email.");
+			throw new ErroAutenticacao("Não existe usuario cadastrado com esse email.");
 		}
 
 		if (!usuario.get().getPassword().equals(senha)) {
@@ -36,13 +36,14 @@ public class CustomerServiceIMPL implements CustomerService {
 	}
 
 	@Transactional
-	public Customer salvarCliente(Customer usuario) {
+	public Usuario salvarCliente(Usuario usuario) {
+		validarEmail(usuario.getEmail());
 		return repository.save(usuario);
 	}
 	
 	public void validarEmail(String email) {
 		if (repository.existsByEmail(email)) {
-			throw new RegraNegocioEmailException("Já existe um usuário com este email.");
+			throw new RegraNegocioException("Já existe um usuário com este email.");
 		}
 	}
 }

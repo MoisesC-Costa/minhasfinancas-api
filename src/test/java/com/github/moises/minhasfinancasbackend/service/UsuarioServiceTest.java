@@ -1,10 +1,10 @@
 package com.github.moises.minhasfinancasbackend.service;
 
 
-import com.github.moises.minhasfinancasbackend.advice.exception.RegraNegocioEmailException;
-import com.github.moises.minhasfinancasbackend.model.entities.Customer;
-import com.github.moises.minhasfinancasbackend.model.repositories.CustomerRepository;
-import com.github.moises.minhasfinancasbackend.service.impl.CustomerServiceIMPL;
+import com.github.moises.minhasfinancasbackend.advice.exception.RegraNegocioException;
+import com.github.moises.minhasfinancasbackend.model.entities.Usuario;
+import com.github.moises.minhasfinancasbackend.model.repositories.UsuarioRepository;
+import com.github.moises.minhasfinancasbackend.service.impl.CustomerServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,16 +21,16 @@ import java.util.Optional;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-public class CustomerServiceTest {
+public class UsuarioServiceTest {
 
     CustomerService service;
 
     @MockBean
-    CustomerRepository repository;
+    UsuarioRepository repository;
 
     @BeforeEach
     public void setup() {
-        service = new CustomerServiceIMPL(repository);
+        service = new CustomerServiceImpl(repository);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class CustomerServiceTest {
         String email = "email@email.com";
         String senha = "password";
 
-        var usuario = Customer.builder().id(1L).name("nome").email(email).password(senha).build();
+        var usuario = Usuario.builder().id(1L).name("nome").email(email).password(senha).build();
         Mockito.when(repository.findByEmail(email)).thenReturn(Optional.of(usuario));
 
         // ação
@@ -54,7 +54,7 @@ public class CustomerServiceTest {
         // cenário
         String senha = "password";
 
-        var usuario = Customer.builder().id(1L).name("nome").email("email@email.com").password(senha).build();
+        var usuario = Usuario.builder().id(1L).name("nome").email("email@email.com").password(senha).build();
         Mockito.when(repository.findByEmail(Mockito.anyString())).thenReturn(Optional.of(usuario));
 
     }
@@ -73,6 +73,6 @@ public class CustomerServiceTest {
         Mockito.when(repository.existsByEmail(Mockito.anyString())).thenReturn(true);
 
         // ação
-        Assertions.assertThrows(RegraNegocioEmailException.class, () -> service.validarEmail("email@email.com"));
+        Assertions.assertThrows(RegraNegocioException.class, () -> service.validarEmail("email@email.com"));
     }
 }

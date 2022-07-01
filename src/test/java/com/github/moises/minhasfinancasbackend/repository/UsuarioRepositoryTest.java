@@ -5,22 +5,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.github.moises.minhasfinancasbackend.model.entities.Customer;
-import com.github.moises.minhasfinancasbackend.model.repositories.CustomerRepository;
-import org.springframework.context.annotation.Profile;
+import com.github.moises.minhasfinancasbackend.model.entities.Usuario;
+import com.github.moises.minhasfinancasbackend.model.repositories.UsuarioRepository;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class CustomerRepositoryTest {
+public class UsuarioRepositoryTest {
 	
 	@Autowired
-	public CustomerRepository repository;
+	public UsuarioRepository repository;
 
 	@Test
 	public void deveVerificarAExistenciaDeUmEmail() {
 		// Cenario
-		var usuario = Customer.builder().name("usuario").email("usuario@email.com").build();
+		var usuario = Usuario.builder().name("usuario").email("usuario@email.com").build();
 		repository.save(usuario);
 		
 		// Ação
