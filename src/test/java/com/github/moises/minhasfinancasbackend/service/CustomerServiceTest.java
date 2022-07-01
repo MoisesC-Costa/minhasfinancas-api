@@ -59,7 +59,6 @@ public class CustomerServiceTest {
 
     }
 
-
     @Test
     public void deveValidarEmail() {
         // cenario
